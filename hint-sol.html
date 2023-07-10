@@ -1,0 +1,71 @@
+<button type="button"
+        onClick="handleTempHint('hint-temp')"
+        id="hint-temp"
+        style="text-align: center;margin: 0px 10px 5px 0px;padding: 4px;border-radius: 15px;border: 3px solid #36445c;color: #000;background-color: #f4f4f4;cursor: pointer;font-size: 18px;width: 80px;"
+        onMouseOver="this.style.backgroundColor = '#e6e6e6';"
+        onMouseOut="this.style.backgroundColor = '#f4f4f4';">Hint
+</button>
+
+<button type="button"
+        onClick="handleTempHint('sol-temp')"
+        id="sol-temp"
+        style="text-align: center;margin: 0px 10px 5px 0px;padding: 4px;border-radius: 15px;border: 3px solid #ff8a00;color: #000;background-color: #f4f4f4;cursor: pointer;font-size: 18px;width: 90px;
+               transition: background-color 0.3s, border-color 0.3s;"
+        onMouseOver="this.style.backgroundColor = '#e0e0e0'; this.style.borderColor = '#d35400';"
+        onMouseOut="this.style.backgroundColor = '#f4f4f4'; this.style.borderColor = '#ff8a00';">Solution
+</button>
+
+<script>
+    window.onload = function () {
+        var hint = document.getElementById("sol-temp").parentNode.parentNode.parentNode.parentNode.nextElementSibling;
+        var sol = hint.nextElementSibling;
+        hint.style.display = "none";
+        sol.style.display = "none";
+        hint.firstElementChild.firstElementChild.style.cssText = `
+               background-color:white; border-radius:15px; border:1px solid lightgray;
+          `;
+    };
+
+    function handleTempHint(text) {
+        if (text == "hint-temp") {
+            var this_content = document.getElementById("sol-temp").parentElement.parentElement.parentElement.parentElement.nextElementSibling;
+            var other_content = document.getElementById("sol-temp").parentElement.parentElement.parentElement.parentElement.nextElementSibling.nextElementSibling;
+            var this_button = document.getElementById("hint-temp");
+            var color = "#36445c";
+            var other_text = "sol-temp";
+        } else {
+            var other_content = document.getElementById("sol-temp").parentElement.parentElement.parentElement.parentElement.nextElementSibling;
+            var this_content = document.getElementById("sol-temp").parentElement.parentElement.parentElement.parentElement.nextElementSibling.nextElementSibling;
+            var this_button = document.getElementById("sol-temp");
+            var color = "#ff8a00";
+            var other_text = "hint-temp";
+        }
+
+        if (this_content.style.display === "block") {
+            this_content.style.display = "none";
+            this_button.style.color = "black";
+            this_button.style.backgroundColor = "#f4f4f4";
+        } else if (this_content.style.display === "none" && other_content.style.display === "block") {
+            handleTempHint(other_text);
+            this_content.style.display = "block";
+            this_button.style.color = "black";
+            this_button.style.backgroundColor = color;
+        } else {
+            this_content.style.display = "block";
+            this_button.style.color = "black";
+            this_button.style.backgroundColor = color;
+        }
+    }
+    var hintButton = document.getElementById("hint-temp");
+    var solButton = document.getElementById("sol-temp");
+
+    hintButton.addEventListener("click", function() {
+        hintButton.style.backgroundColor = "#f4f4f4";
+    });
+
+    solButton.addEventListener("click", function() {
+        solButton.style.backgroundColor = "#f4f4f4";
+    });
+</script>
+
+
